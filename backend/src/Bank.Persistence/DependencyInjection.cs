@@ -10,6 +10,7 @@ public static class DependencyInjection
         services.AddMarten(options => 
         {
             options.Connection(connectionString);
+            options.DatabaseSchemaName = "bank_db";
 
             options.Events.AddEventTypes([
                 typeof(Bank.Domain.AccountOpened),
@@ -18,7 +19,6 @@ public static class DependencyInjection
             ]);
 
             options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline);
-
             options.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
         })
         .UseLightweightSessions();
