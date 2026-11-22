@@ -28,6 +28,7 @@ public static class DependencyInjection
             ]);
 
             options.Projections.Snapshot<BankAccount>(SnapshotLifecycle.Inline);
+            options.Projections.Add<AccountSummaryProjection>(ProjectionLifecycle.Inline);
             options.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
         })
         .UseLightweightSessions();

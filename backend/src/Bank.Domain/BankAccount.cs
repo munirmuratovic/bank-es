@@ -1,10 +1,16 @@
+using System.Text.Json.Serialization;
+
 namespace Bank.Domain;
 
 public class BankAccount
 {
+    [JsonInclude]
     public Guid Id { get; private set; }
+    [JsonInclude]
     public string OwnerName { get; private set; } = string.Empty;
+    [JsonInclude]
     public string Currency { get; private set; } = "USD";
+    [JsonInclude]
     public decimal Balance { get; private set; }
 
     public BankAccount()
