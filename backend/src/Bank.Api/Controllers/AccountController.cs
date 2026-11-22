@@ -49,6 +49,13 @@ public class AccountController(ISender sender) : ControllerBase
     public Task<IActionResult> Withdraw(Guid id, TransactionRequest request, CancellationToken ct) =>
         Run(async () => Ok(new BalanceResponse(id, await sender.Send(new WithdrawCommand(id, request.Amount, request.Reference), ct))));
 
+    [HttpGet]
+    [EndpointSummary("List accounts (projection)")]
+    [EndpointDescription("Query. Returns all AccountSummary read models, ordered by owner name. Used to fill account pickers.")]
+    [ProducesResponseType<IReadOnlyList<AccountSummary>>(StatusCodes.Status200OK)]
+    public Task<IActionResult> List(CancellationToken ct) =>
+        Run(async () => Ok(await sender.Send(new ListAccountsQuery(), ct)));
+
     [HttpGet("{id:guid}")]
     [EndpointSummary("Get account summary (projection)")]
     [EndpointDescription("Query. Reads the AccountSummary read model, built by a projection from the events: owner, currency, balance, totals and transaction count. Use this for display and reporting.")]
@@ -56,6 +63,14 @@ public class AccountController(ISender sender) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public Task<IActionResult> GetSummary(Guid id, CancellationToken ct) =>
         Run(async () => Ok(await sender.Send(new GetAccountSummaryQuery(id), ct)));
+
+    [HttpGet("{id:guid}/transactions")]
+    [EndpointSummary("List account transactions")]
+    [EndpointDescription("Query. Reads the account's event stream and returns its deposits and withdrawals (type, amount, reference, time), newest first.")]
+    [ProducesResponseType<IReadOnlyList<TransactionItem>>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public Task<IActionResult> GetTransactions(Guid id, CancellationToken ct) =>
+        Run(async () => Ok(await sender.Send(new GetTransactionsQuery(id), ct)));
 
     [HttpGet("{id:guid}/snapshot")]
     [EndpointSummary("Get account snapshot (aggregate state)")]

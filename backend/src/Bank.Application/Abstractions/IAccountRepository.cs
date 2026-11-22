@@ -16,6 +16,12 @@ public interface IAccountRepository
     /// <summary>Reads the projected read model (AccountSummary).</summary>
     Task<AccountSummary?> GetSummaryAsync(Guid accountId, CancellationToken cancellationToken);
 
+    /// <summary>Lists all account summaries.</summary>
+    Task<IReadOnlyList<AccountSummary>> ListSummariesAsync(CancellationToken cancellationToken);
+
+    /// <summary>Reads deposits and withdrawals from the event stream, newest first. Null if the account does not exist.</summary>
+    Task<IReadOnlyList<TransactionItem>?> GetTransactionsAsync(Guid accountId, CancellationToken cancellationToken);
+
     /// <summary>Reads the inline snapshot of the aggregate (current state of BankAccount).</summary>
     Task<BankAccount?> GetSnapshotAsync(Guid accountId, CancellationToken cancellationToken);
 }
