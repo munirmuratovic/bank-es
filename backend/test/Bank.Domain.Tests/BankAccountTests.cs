@@ -1,5 +1,3 @@
-using Bank.Domain;
-
 namespace Bank.Domain.Tests;
 
 public class BankAccountTests
