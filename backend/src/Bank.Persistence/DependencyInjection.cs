@@ -1,3 +1,12 @@
+using JasperFx.Events.Projections;
+using Marten.Events.Projections;
+using Bank.Domain;
+using JasperFx.Events;
+using JasperFx;
+using Marten;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Bank.Persistence;
 
 public static class DependencyInjection
@@ -22,6 +31,8 @@ public static class DependencyInjection
             options.AutoCreateSchemaObjects = AutoCreate.CreateOrUpdate;
         })
         .UseLightweightSessions();
+
+        services.AddScoped<Bank.Application.Abstractions.IAccountRepository, AccountRepository>();
 
         return services;
     }

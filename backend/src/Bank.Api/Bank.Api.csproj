@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Marten.AspNetCore" Version="9.62.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="11.0.1" />
   </ItemGroup>
 
   <ItemGroup>

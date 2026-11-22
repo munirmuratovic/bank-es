@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="JasperFx.Events" Version="2.102.0" />
+    <PackageReference Include="JasperFx.Events.SourceGenerator" Version="2.102.0" />
+  </ItemGroup>
+
 </Project>
