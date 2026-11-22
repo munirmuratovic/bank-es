@@ -1,6 +1,30 @@
 @Bank.Api_HostAddress = http://localhost:5259
+@accountId = replace-with-account-id
 
-GET {{Bank.Api_HostAddress}}/weatherforecast/
+### List accounts
+GET {{Bank.Api_HostAddress}}/api/accounts
 Accept: application/json
 
-###
+### Open account
+POST {{Bank.Api_HostAddress}}/api/accounts
+Content-Type: application/json
+
+{ "ownerName": "Jane Doe", "currency": "BAM" }
+
+### Deposit
+POST {{Bank.Api_HostAddress}}/api/accounts/{{accountId}}/deposit
+Content-Type: application/json
+
+{ "amount": 100, "reference": "salary" }
+
+### Withdraw
+POST {{Bank.Api_HostAddress}}/api/accounts/{{accountId}}/withdraw
+Content-Type: application/json
+
+{ "amount": 30, "reference": "rent" }
+
+### Summary
+GET {{Bank.Api_HostAddress}}/api/accounts/{{accountId}}
+
+### Transactions
+GET {{Bank.Api_HostAddress}}/api/accounts/{{accountId}}/transactions
